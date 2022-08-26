@@ -1,0 +1,10 @@
+name = "httpbin"
+main = "src/index.ts"
+compatibility_date = "2022-08-26"
+legacy_env = false
+
+[dev]
+ip = "0.0.0.0"
+port = 8989
+local_protocol = "https"
+upstream_protocol = "https"
