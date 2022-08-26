@@ -58,6 +58,12 @@ router.get("/content-type/:content_type", (request: Request) => {
 router.get("/ip", async (request: Request) => {
   return new Response(request.headers.get("cf-connecting-ip"));
 });
+
+router.get("/headers", async (request: Request) => {
+  return new Response(JSON.stringify(Object.fromEntries(request.headers)), {
+    headers: { "content-type": "application/json" },
+  });
+});
 router.all("*", () => new Response("Not found", { status: 404 }));
 
 addEventListener("fetch", (event) =>
