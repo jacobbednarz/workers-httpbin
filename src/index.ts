@@ -4,11 +4,11 @@ import { statusCodeToText } from "./http_status_code_to_text";
 const router = Router();
 
 router.get("/ping", () => new Response("PONG"));
+
 router.get("/status/:status", async (request) => {
   let statusText: string = "OK";
   let statusCode = 200;
 
-  console.log(request?.params?.status);
   if (
     typeof request?.params?.status !== "undefined" &&
     request?.params?.status !== null
