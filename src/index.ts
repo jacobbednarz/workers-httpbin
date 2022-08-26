@@ -23,6 +23,11 @@ router.get("/status/:status", async (request) => {
   });
 });
 
+router.all("/delay/:timeout", async (request: Request) => {
+  let timeout = parseInt(request?.params?.timeout) || 3;
+  await new Promise((r) => setTimeout(r, 1000 * timeout));
+  return new Response(null);
+});
 router.all("*", () => new Response("Not found", { status: 404 }));
 
 addEventListener("fetch", (event) =>
