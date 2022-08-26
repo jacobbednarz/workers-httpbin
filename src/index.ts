@@ -69,6 +69,10 @@ router.get("/user-agent", async (request: Request) => {
   return new Response(request.headers.get("user-agent"));
 });
 
+router.get("/uuid", () => {
+  return new Response(crypto.randomUUID());
+});
+
 router.all("*", () => new Response("Not found", { status: 404 }));
 
 addEventListener("fetch", (event) =>
