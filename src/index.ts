@@ -28,6 +28,32 @@ router.all("/delay/:timeout", async (request: Request) => {
   await new Promise((r) => setTimeout(r, 1000 * timeout));
   return new Response(null);
 });
+
+router.get("/content-type/:content_type", (request: Request) => {
+  switch (request?.params?.content_type) {
+    case "json": {
+      return new Response(JSON.stringify({ foo: "bar", baz: "qux" }), {
+        headers: { "content-type": "application/json" },
+      });
+    }
+    case "xml": {
+      return new Response(
+        `<note><to>Quisque</to><from>Vivamus</from><heading>Phasellus aliquet</heading><body>Suspendisse sit amet aliquam arcu</body></note>`,
+        {
+          headers: { "content-type": "application/xml" },
+        }
+      );
+    }
+    default: {
+      return new Response(
+        `<html><head><title>foo</title></head><body>bar</body></html>`,
+        {
+          headers: { "content-type": "application/html" },
+        }
+      );
+    }
+  }
+});
 router.all("*", () => new Response("Not found", { status: 404 }));
 
 addEventListener("fetch", (event) =>
