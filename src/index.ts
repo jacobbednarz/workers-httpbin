@@ -64,6 +64,11 @@ router.get("/headers", async (request: Request) => {
     headers: { "content-type": "application/json" },
   });
 });
+
+router.get("/user-agent", async (request: Request) => {
+  return new Response(request.headers.get("user-agent"));
+});
+
 router.all("*", () => new Response("Not found", { status: 404 }));
 
 addEventListener("fetch", (event) =>
