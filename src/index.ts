@@ -73,7 +73,26 @@ router.get("/uuid", () => {
   return new Response(crypto.randomUUID());
 });
 
-router.all("*", () => new Response("Not found", { status: 404 }));
+router.all(
+  "*",
+  () =>
+    new Response(
+      JSON.stringify({
+        "/all": "Returns everything about the request and response.",
+        "/content-type/:content_type":
+          "Returns a response with the designated content type and example content.",
+        "/delay/:timeout": "Delays a response for the designated `timeout`.",
+        "/headers": "Display all HTTP headers.",
+        "/ip": "Get the callers IP.",
+        "/ping": "Returns a PONG.",
+        "/status/:status":
+          "Returns a response and status code matching the requested status code.",
+        "/user-agent": "Return the user agent.",
+        "/uuid": "Generates a v4 UUID.",
+      }),
+      { status: 404, headers: { "content-type": "application/json" } }
+    )
+);
 
 addEventListener("fetch", (event) =>
   event.respondWith(router.handle(event.request))
